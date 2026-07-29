@@ -1,0 +1,19 @@
+{
+  "name": "@struxel/sdk",
+  "version": "1.0.0",
+  "description": "Struxel SDK guardrails for AI pipelines",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.4",
+    "typescript": "^5.8.2",
+    "vitest": "^2.1.8"
+  }
+}
