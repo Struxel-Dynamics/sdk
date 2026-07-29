@@ -74,9 +74,9 @@ public class LicenseValidator {
 
     String payload = String.format(
         "{\"api_key\":\"%s\",\"sdk_version\":\"%s\",\"language\":\"%s\"}",
-        apiKey,
-        sdkVersion,
-        language);
+        escapeJson(apiKey),
+        escapeJson(sdkVersion),
+        escapeJson(language));
 
     String body;
     try {
@@ -139,5 +139,16 @@ public class LicenseValidator {
     Pattern p = Pattern.compile("\"" + key + "\"\\s*:\\s*(true|false)");
     Matcher m = p.matcher(json);
     return m.find() && Boolean.parseBoolean(m.group(1));
+  }
+
+  private String escapeJson(String value) {
+    return value
+        .replace("\\", "\\\\")
+        .replace("\"", "\\\"")
+        .replace("\b", "\\b")
+        .replace("\f", "\\f")
+        .replace("\n", "\\n")
+        .replace("\r", "\\r")
+        .replace("\t", "\\t");
   }
 }

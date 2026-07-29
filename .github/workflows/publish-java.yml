@@ -5,6 +5,9 @@ on:
     tags:
       - 'v*'
 
+permissions:
+  contents: read
+
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -22,6 +25,6 @@ jobs:
           server-password: MAVEN_PASSWORD
       - run: mvn deploy -DskipTests
         env:
-          MAVEN_USERNAME: ${{ secrets.SONATYPE_TOKEN }}
+          MAVEN_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.SONATYPE_TOKEN }}
           MAVEN_GPG_KEY: ${{ secrets.MAVEN_GPG_KEY }}
