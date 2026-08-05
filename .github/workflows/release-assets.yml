@@ -25,7 +25,7 @@ jobs:
         run: |
           pip install build
           python -m build
-          cp dist/struxel_sdk-1.0.0.tar.gz ../struxel-sdk-python-1.0.0.tar.gz
+          cp dist/struxel_sdk-1.0.0.tar.gz ../struxel-sdk-python-1.0.0.tar.gz || cp dist/struxel-sdk-1.0.0.tar.gz ../struxel-sdk-python-1.0.0.tar.gz
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
