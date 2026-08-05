@@ -1,0 +1,48 @@
+name: Create Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag_name:
+        description: Tag to create and release (for example, v1.0.0)
+        required: true
+        type: string
+        default: v1.0.0
+      release_name:
+        description: Release title
+        required: false
+        type: string
+        default: ''
+      prerelease:
+        description: Mark as pre-release
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Resolve release name
+        env:
+          INPUT_RELEASE_NAME: ${{ inputs.release_name }}
+          INPUT_TAG_NAME: ${{ inputs.tag_name }}
+        run: |
+          NAME="$INPUT_RELEASE_NAME"
+          if [ -z "$NAME" ]; then
+            NAME="$INPUT_TAG_NAME"
+          fi
+          echo "RELEASE_NAME=$NAME" >> "$GITHUB_ENV"
+
+      - name: Create tag and GitHub release
+        uses: softprops/action-gh-release@3d0d9888cb7fd7b750713d6e236d1fcb99157228 # v3.0.2
+        with:
+          tag_name: ${{ inputs.tag_name }}
+          name: ${{ env.RELEASE_NAME }}
+          prerelease: ${{ inputs.prerelease }}
+          generate_release_notes: true
