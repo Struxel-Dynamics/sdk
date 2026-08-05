@@ -29,10 +29,13 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Resolve release name
+        env:
+          INPUT_RELEASE_NAME: ${{ inputs.release_name }}
+          INPUT_TAG_NAME: ${{ inputs.tag_name }}
         run: |
-          NAME="${{ inputs.release_name }}"
+          NAME="$INPUT_RELEASE_NAME"
           if [ -z "$NAME" ]; then
-            NAME="${{ inputs.tag_name }}"
+            NAME="$INPUT_TAG_NAME"
           fi
           echo "RELEASE_NAME=$NAME" >> "$GITHUB_ENV"
 
