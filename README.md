@@ -55,7 +55,7 @@ See https://docs.struxel.ai/sdk.
 
 ## Release Distribution
 
-For embedded SDK packaging, publish a GitHub release in `struxel-dynamics/sdk` with these assets for `v1.0.0`:
+For embedded SDK packaging, publish a GitHub release in `struxel-dynamics/sdk` with the four versioned assets for the release tag (for example, `v1.0.0`):
 
 - `struxel-sdk-python-1.0.0.tar.gz`
 - `struxel-sdk-typescript-1.0.0.tgz`
