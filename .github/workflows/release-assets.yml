@@ -73,7 +73,7 @@ jobs:
           tar -C "${GITHUB_WORKSPACE}" -czf "${GITHUB_WORKSPACE}/struxel-sdk-go-${VERSION}.tar.gz" go
 
       - name: Upload release assets
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@c062e08bd532815e2082a7e09ce9571a589e5dd1
         with:
           tag_name: ${{ env.RELEASE_TAG }}
           files: |
