@@ -1,0 +1,70 @@
+name: Release SDK Assets
+
+on:
+  release:
+    types:
+      - published
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-assets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Build Python asset
+        working-directory: python
+        run: |
+          pip install build
+          python -m build
+          cp dist/struxel_sdk-1.0.0.tar.gz ../struxel-sdk-python-1.0.0.tar.gz
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Build TypeScript asset
+        working-directory: typescript
+        run: |
+          npm ci
+          npm pack
+          cp struxel-sdk-1.0.0.tgz ../struxel-sdk-typescript-1.0.0.tgz
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Build Java asset
+        working-directory: java
+        run: |
+          mvn -B -DskipTests package
+          cp target/sdk-1.0.0.jar ../struxel-sdk-java-1.0.0.jar
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.21'
+
+      - name: Build Go asset
+        run: |
+          tar -C /home/runner/work/sdk -czf /home/runner/work/sdk/sdk/struxel-sdk-go-1.0.0.tar.gz sdk/go
+
+      - name: Upload release assets
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            struxel-sdk-python-1.0.0.tar.gz
+            struxel-sdk-typescript-1.0.0.tgz
+            struxel-sdk-java-1.0.0.jar
+            struxel-sdk-go-1.0.0.tar.gz

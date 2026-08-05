@@ -53,6 +53,17 @@ Use an API key in `sdk_<uuid>` format. Generate it from the Struxel CCC dashboar
 
 See https://docs.struxel.ai/sdk.
 
+## Release Distribution
+
+For embedded SDK packaging, publish a GitHub release in `struxel-dynamics/sdk` with these assets for `v1.0.0`:
+
+- `struxel-sdk-python-1.0.0.tar.gz`
+- `struxel-sdk-typescript-1.0.0.tgz`
+- `struxel-sdk-java-1.0.0.jar`
+- `struxel-sdk-go-1.0.0.tar.gz`
+
+True air-gapped customers do not fetch from GitHub releases. Deliver their artifacts through the Self-Hosted/Air-Gap bundle flow instead.
+
 ## Security
 
 Do not commit API keys into this repository. The SDK validates every license with Struxel's license server, and customer model data remains in the customer's environment.
